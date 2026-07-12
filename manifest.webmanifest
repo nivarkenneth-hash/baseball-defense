@@ -1,7 +1,7 @@
 {
-  "name": "Defensa de Béisbol — 200 jugadas",
-  "short_name": "Defensa Baseball",
-  "description": "200 escenarios defensivos de béisbol para aprendizaje personal.",
+  "name": "Academia Defensiva de Béisbol",
+  "short_name": "Academia Baseball",
+  "description": "200 jugadas y academia interactiva para aprender decisiones defensivas.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

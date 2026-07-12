@@ -5,45 +5,57 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#082d22">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Defensa Baseball">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>Defensa de Béisbol — 200 jugadas</title>
+<title>Academia Defensiva de Béisbol</title>
 <style>
-:root{--bg:#082d22;--panel:#123f32;--gold:#f7c948;--red:#e74c3c;--blue:#123a70;--runner:#f39c12;--white:#fff;--muted:#cfe6dd}
-*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#fff;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);-webkit-tap-highlight-color:transparent}
-.app{max-width:780px;margin:auto;padding:15px 12px 35px}h1{text-align:center;margin:3px 0 5px}.intro{text-align:center;color:var(--muted);margin:0 0 13px}
-.filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:9px}.filters input,.filters select,#playSelect{width:100%;padding:11px;border-radius:11px;background:#124a3a;color:#fff;border:1px solid #2a6f5b;font-weight:700}
-#playSelect{margin-bottom:10px}.count{font-size:12px;color:#d9eee6;text-align:right;margin:-3px 2px 8px}
-.field{position:relative;aspect-ratio:1;border:3px solid #e8c17a;border-radius:20px;overflow:hidden;background:#1d7048}.field svg{position:absolute;inset:0;width:100%;height:100%}
-.player,.runner{position:absolute;display:flex;align-items:center;justify-content:center;transform:translate(-50%,-50%);z-index:4;box-shadow:0 4px 10px rgba(0,0,0,.3)}
-.player{width:34px;height:34px;border-radius:50%;background:var(--blue);border:2px solid white;font-weight:900;font-size:12px;transition:left 1.15s ease,top 1.15s ease}
+:root{--bg:#082d22;--panel:#123f32;--gold:#f7c948;--red:#e74c3c;--blue:#123a70;--runner:#f39c12;--ok:#19a66a;--bad:#d84545;--muted:#cfe6dd}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#fff;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
+.app{max-width:800px;margin:auto;padding:14px 12px 35px}h1{text-align:center;margin:3px 0 5px}.intro{text-align:center;color:var(--muted);margin:0 0 12px}
+.tabs{display:flex;gap:8px;margin-bottom:12px}.tabs button{flex:1;padding:12px;border:1px solid #2a6f5b;border-radius:12px;background:#124a3a;color:#fff;font-weight:900}.tabs button.active{background:var(--gold);color:#173228}
+.hidden{display:none!important}.filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:9px}
+input,select,button{font:inherit}input,select{width:100%;padding:11px;border-radius:11px;background:#124a3a;color:#fff;border:1px solid #2a6f5b;font-weight:700}
+.field{position:relative;aspect-ratio:1;border:3px solid #e8c17a;border-radius:20px;overflow:hidden;background:#1d7048;margin-top:10px}.field svg{position:absolute;inset:0;width:100%;height:100%}
+.player,.runner,.ball{position:absolute;display:flex;align-items:center;justify-content:center;transform:translate(-50%,-50%);z-index:4;box-shadow:0 4px 10px rgba(0,0,0,.3)}
+.player{width:34px;height:34px;border-radius:50%;background:var(--blue);border:2px solid white;font-weight:900;font-size:12px;transition:left .9s ease,top .9s ease}
 .runner{width:29px;height:29px;border-radius:8px;background:var(--runner);border:2px solid white;font-weight:900;font-size:10px}
-.ball{position:absolute;width:12px;height:12px;border-radius:50%;background:white;border:2px solid #d33;transform:translate(-50%,-50%);z-index:5;transition:left 1.15s linear,top 1.15s linear}
-.controls{display:flex;gap:9px;margin-top:11px}.controls button{flex:1;padding:12px;border:0;border-radius:11px;color:white;font-weight:900}.play{background:var(--red)}.reset{background:#245b4a}
-.meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}.badge{background:#0f4b3a;border:1px solid #2a6f5b;padding:7px 10px;border-radius:999px;color:#dcefe7;font-size:12px}
-.card{background:var(--panel);border-left:5px solid var(--gold);border-radius:13px;padding:13px;margin-top:12px}.card small{color:var(--gold);font-weight:900}.card strong{display:block;margin-top:4px;font-size:17px}
-.summary{color:#d6e9e2;line-height:1.4;margin:9px 0 0;font-size:14px}.positions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.positions button{width:47px;height:42px;border-radius:11px;border:1px solid #2a6f5b;background:#124a3a;color:white;font-weight:900}.positions button.active{background:#fff;color:var(--blue)}
+.ball{width:13px;height:13px;border-radius:50%;background:#fff;border:2px solid #d33;transition:left .55s linear,top .55s linear;z-index:6}
+.controls{display:flex;gap:9px;margin-top:10px}.controls button{flex:1;padding:12px;border:0;border-radius:11px;color:#fff;font-weight:900}.play{background:var(--red)}.reset{background:#245b4a}
+.meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.badge{background:#0f4b3a;border:1px solid #2a6f5b;padding:7px 10px;border-radius:999px;color:#dcefe7;font-size:12px}
+.card{background:var(--panel);border-left:5px solid var(--gold);border-radius:13px;padding:13px;margin-top:11px}.card small{color:var(--gold);font-weight:900}.card strong{display:block;margin-top:4px;font-size:17px}
+.positions{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}.positions button{width:47px;height:42px;border-radius:11px;border:1px solid #2a6f5b;background:#124a3a;color:#fff;font-weight:900}.positions button.active{background:#fff;color:var(--blue)}
 .explanation{background:#fff;color:#263e36;border-radius:13px;padding:14px;margin-top:10px;line-height:1.45}.explanation h2{color:var(--blue);margin:0 0 5px}
-.legend{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:12px;margin-top:9px}.dot,.square,.ballmini{display:inline-block;vertical-align:middle;margin-right:4px}.dot{width:14px;height:14px;border-radius:50%;background:var(--blue);border:1px solid #fff}.square{width:14px;height:14px;border-radius:4px;background:var(--runner);border:1px solid #fff}.ballmini{width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid #d33}
-.note{font-size:11px;color:#a9c9bd;text-align:center;line-height:1.45;margin-top:15px}
-@media(max-width:500px){h1{font-size:24px}.filters{grid-template-columns:1fr}.player{width:30px;height:30px;font-size:10px}.runner{width:26px;height:26px}.controls{position:sticky;bottom:6px;z-index:20;background:rgba(8,45,34,.94);padding:7px;border-radius:13px}}
+.quiz-title{background:var(--panel);padding:13px;border-radius:13px;margin-bottom:9px}.quiz-title h2{margin:0 0 6px;font-size:19px}.quiz-title p{margin:0;color:var(--muted);font-size:14px}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:11px}.answers button{padding:13px;border-radius:12px;border:2px solid #2a6f5b;background:#124a3a;color:#fff;font-weight:900}.answers button.correct{background:var(--ok);border-color:#70dfaa}.answers button.wrong{background:var(--bad);border-color:#ff9999}
+.feedback{min-height:72px;margin-top:10px;background:#fff;color:#253e35;padding:13px;border-radius:13px;line-height:1.45}.feedback strong{color:var(--blue)}
+.score{display:flex;justify-content:space-between;gap:8px;margin-top:9px}.score span{flex:1;text-align:center;background:#0f4b3a;padding:9px;border-radius:10px;font-size:13px}
+.count{text-align:right;color:#cfe6dd;font-size:12px;margin:6px 2px}
+.note{text-align:center;color:#a9c9bd;font-size:11px;line-height:1.45;margin-top:14px}
+@media(max-width:500px){h1{font-size:23px}.filters{grid-template-columns:1fr}.player{width:30px;height:30px;font-size:10px}.runner{width:26px;height:26px}.answers{grid-template-columns:1fr 1fr}.controls{position:sticky;bottom:6px;z-index:20;background:rgba(8,45,34,.94);padding:7px;border-radius:13px}}
 </style>
 </head>
 <body>
 <main class="app">
-<h1>Defensa de Béisbol</h1>
-<p class="intro">200 escenarios defensivos con corredores, outs, cortes y respaldos.</p>
+<h1>Academia Defensiva de Béisbol</h1>
+<p class="intro">Aprende dónde moverte y a qué base tirar.</p>
+<div class="tabs"><button id="tabPlays" class="active">200 jugadas</button><button id="tabQuiz">¿Dónde tiro?</button></div>
 
+<section id="playsMode">
 <div class="filters">
-<input id="searchInput" placeholder="Buscar: shortstop, bunt, left field...">
+<input id="searchInput" placeholder="Buscar jugada...">
 <select id="categoryFilter"><option value="">Todas las categorías</option></select>
-<select id="runnerFilter"><option value="">Todas las situaciones de corredores</option></select>
+<select id="runnerFilter"><option value="">Todos los corredores</option></select>
 <select id="outsFilter"><option value="">Todos los outs</option></select>
 </div>
-<select id="playSelect"></select>
-<div class="count" id="countText"></div>
+<select id="playSelect"></select><div class="count" id="countText"></div>
+</section>
+
+<section id="quizMode" class="hidden">
+<div class="quiz-title"><h2 id="quizTitle"></h2><p id="quizPrompt">¿A qué base debe realizarse el primer tiro?</p></div>
+<select id="quizSelect"></select>
+<div class="score"><span>Aciertos: <b id="correctScore">0</b></span><span>Intentos: <b id="attemptScore">0</b></span><span>Puntuación: <b id="percentScore">0%</b></span></div>
+</section>
 
 <div class="field" id="field">
 <svg viewBox="0 0 100 100">
@@ -55,51 +67,52 @@
 </svg>
 </div>
 
-<div class="legend"><span><i class="dot"></i>Defensor</span><span><i class="square"></i>Corredor</span><span><i class="ballmini"></i>Pelota</span></div>
-<div class="controls"><button class="play" id="playBtn">▶ Reproducir</button><button class="reset" id="resetBtn">↺ Reiniciar</button></div>
+<div id="playControls" class="controls"><button class="play" id="playBtn">▶ Reproducir</button><button class="reset" id="resetBtn">↺ Reiniciar</button></div>
+<div id="quizAnswers" class="answers hidden"></div>
+<div id="quizFeedback" class="feedback hidden">Selecciona la base donde debe realizarse el primer tiro.</div>
 
 <div class="meta"><span class="badge" id="categoryText"></span><span class="badge" id="runnersText"></span><span class="badge" id="outsText"></span></div>
-<div class="card"><small>TIRO PRINCIPAL</small><strong id="throwText"></strong><p class="summary" id="summaryText"></p></div>
-<div class="positions" id="positionButtons"></div>
-<div class="explanation"><h2 id="positionTitle">SS</h2><div id="positionDuty"></div></div>
-<p class="note">Las rutas son guías educativas simplificadas para uso personal. Un entrenador puede usar variantes según edad, fuerza de brazo, profundidad y sistema defensivo.</p>
+<div class="card"><small id="cardLabel">TIRO PRINCIPAL</small><strong id="throwText"></strong><p id="summaryText"></p></div>
+<div id="positionArea"><div class="positions" id="positionButtons"></div><div class="explanation"><h2 id="positionTitle">SS</h2><div id="positionDuty"></div></div></div>
+<p class="note">Guía educativa personal. Las decisiones reales pueden variar según velocidad, distancia, marcador y sistema del entrenador.</p>
 </main>
 
-<script src="plays.js"></script>
+<script src="plays.js"></script><script src="situations.js"></script>
 <script>
 const POS=["P","C","1B","2B","3B","SS","LF","CF","RF"];
 const HOME={P:[50,66],C:[50,91],"1B":[72,68],"2B":[61,52],"3B":[28,68],SS:[39,52],LF:[22,27],CF:[50,17],RF:[78,27]};
 const BASES={first:[73,66],second:[50,44],third:[27,66]};
-const field=document.getElementById("field"),playSelect=document.getElementById("playSelect");
-const playerNodes={},runnerNodes={};let ballNode,filtered=[...PLAYS],current=PLAYS[0],selected="SS";
+const TARGET={P:HOME.P,C:HOME.C,"1B":HOME["1B"],"2B":[50,44],"3B":HOME["3B"],SS:HOME.SS,LF:HOME.LF,CF:HOME.CF,RF:HOME.RF,Home:[50,90]};
+const field=document.getElementById("field"),players={},runners={};let ball,currentPlay,filtered=[...PLAYS],selected="SS",mode="plays",scenario=DECISION_SCENARIOS[0],correct=0,attempts=0;
 
-POS.forEach(p=>{const e=document.createElement("div");e.className="player";e.textContent=p;field.appendChild(e);playerNodes[p]=e;
- const b=document.createElement("button");b.textContent=p;b.onclick=()=>{selected=p;renderDuty();renderPositionButtons()};document.getElementById("positionButtons").appendChild(b)});
-["first","second","third"].forEach(base=>{const e=document.createElement("div");e.className="runner";e.textContent="R";e.style.display="none";field.appendChild(e);runnerNodes[base]=e});
-ballNode=document.createElement("div");ballNode.className="ball";field.appendChild(ballNode);
+POS.forEach(p=>{const e=document.createElement("div");e.className="player";e.textContent=p;field.appendChild(e);players[p]=e;
+ const b=document.createElement("button");b.textContent=p;b.onclick=()=>{selected=p;renderDuty();renderPosButtons()};positionButtons.appendChild(b)});
+["first","second","third"].forEach(b=>{const e=document.createElement("div");e.className="runner";e.textContent="R";e.style.display="none";field.appendChild(e);runners[b]=e});
+ball=document.createElement("div");ball.className="ball";field.appendChild(ball);
 
-function unique(key){return [...new Set(PLAYS.map(p=>p[key]))].sort()}
-unique("category").forEach(v=>categoryFilter.add(new Option(v,v)));
-unique("runnersLabel").forEach(v=>runnerFilter.add(new Option(v,v)));
-unique("outs").forEach(v=>outsFilter.add(new Option(v,v)));
+function move(e,p){e.style.left=p[0]+"%";e.style.top=p[1]+"%"}
+function resetField(){POS.forEach(p=>move(players[p],HOME[p]));move(ball,[50,86]);renderRunners()}
+function renderRunners(){const list=mode==="plays"?currentPlay.runners:scenario.runners;["first","second","third"].forEach(b=>{const on=list.includes(b);runners[b].style.display=on?"flex":"none";if(on)move(runners[b],BASES[b])})}
+function renderPosButtons(){[...positionButtons.children].forEach(b=>b.classList.toggle("active",b.textContent===selected))}
+function renderDuty(){if(mode==="plays"){positionTitle.textContent=selected;positionDuty.textContent=currentPlay.moves[selected].duty}}
+function playCurrent(){POS.forEach(p=>move(players[p],currentPlay.moves[p].to));move(ball,currentPlay.ball)}
 
-function move(el,pt){el.style.left=pt[0]+"%";el.style.top=pt[1]+"%"}
-function reset(){POS.forEach(p=>move(playerNodes[p],HOME[p]));move(ballNode,[50,86]);renderRunners()}
-function play(){POS.forEach(p=>move(playerNodes[p],current.moves[p].to));move(ballNode,current.ball)}
-function renderRunners(){["first","second","third"].forEach(base=>{const on=current.runners.includes(base);runnerNodes[base].style.display=on?"flex":"none";if(on)move(runnerNodes[base],BASES[base])})}
-function renderPositionButtons(){[...positionButtons.children].forEach(b=>b.classList.toggle("active",b.textContent===selected))}
-function renderDuty(){positionTitle.textContent=selected;positionDuty.textContent=current.moves[selected].duty}
-function renderCurrent(){current=filtered[+playSelect.value]||filtered[0]||PLAYS[0];categoryText.textContent=current.category;runnersText.textContent=current.runnersLabel;outsText.textContent="Outs: "+current.outs;throwText.textContent=current.throw;summaryText.textContent=current.summary;reset();renderDuty();renderPositionButtons()}
-function applyFilters(){
- const q=searchInput.value.trim().toLowerCase(),cat=categoryFilter.value,run=runnerFilter.value,out=outsFilter.value;
- filtered=PLAYS.filter(p=>(!q||(p.name+" "+p.category+" "+p.throw).toLowerCase().includes(q))&&(!cat||p.category===cat)&&(!run||p.runnersLabel===run)&&(!out||p.outs===out));
- playSelect.innerHTML="";filtered.forEach((p,i)=>playSelect.add(new Option(`${p.number}. ${p.name}`,i)));
- countText.textContent=`${filtered.length} de ${PLAYS.length} jugadas`;
- renderCurrent();
-}
-[searchInput,categoryFilter,runnerFilter,outsFilter].forEach(e=>e.addEventListener(e.tagName==="INPUT"?"input":"change",applyFilters));
-playSelect.onchange=renderCurrent;playBtn.onclick=play;resetBtn.onclick=reset;applyFilters();
+function unique(k){return [...new Set(PLAYS.map(p=>p[k]))].sort()}
+unique("category").forEach(v=>categoryFilter.add(new Option(v,v)));unique("runnersLabel").forEach(v=>runnerFilter.add(new Option(v,v)));unique("outs").forEach(v=>outsFilter.add(new Option(v,v)));
+function applyFilters(){const q=searchInput.value.toLowerCase(),c=categoryFilter.value,r=runnerFilter.value,o=outsFilter.value;filtered=PLAYS.filter(p=>(!q||(p.name+" "+p.throw).toLowerCase().includes(q))&&(!c||p.category===c)&&(!r||p.runnersLabel===r)&&(!o||p.outs===o));playSelect.innerHTML="";filtered.forEach((p,i)=>playSelect.add(new Option(`${p.number}. ${p.name}`,i)));countText.textContent=`${filtered.length} de ${PLAYS.length} jugadas`;renderPlay()}
+function renderPlay(){currentPlay=filtered[+playSelect.value]||filtered[0]||PLAYS[0];categoryText.textContent=currentPlay.category;runnersText.textContent=currentPlay.runnersLabel;outsText.textContent="Outs: "+currentPlay.outs;throwText.textContent=currentPlay.throw;summaryText.textContent=currentPlay.summary;resetField();renderDuty();renderPosButtons()}
+[searchInput,categoryFilter,runnerFilter,outsFilter].forEach(e=>e.addEventListener(e.tagName==="INPUT"?"input":"change",applyFilters));playSelect.onchange=renderPlay;playBtn.onclick=playCurrent;resetBtn.onclick=resetField;
 
-if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js").catch(()=>{}))}
+DECISION_SCENARIOS.forEach((s,i)=>quizSelect.add(new Option(`${i+1}. ${s.title}`,i)));
+function labelRunners(rs){if(!rs.length)return"Base limpias";const m={first:"1ª",second:"2ª",third:"3ª"};return"Corredores: "+rs.map(x=>m[x]).join(" y ")}
+function renderQuiz(){scenario=DECISION_SCENARIOS[+quizSelect.value];quizTitle.textContent=scenario.title;categoryText.textContent="Decisión del cuadro";runnersText.textContent=labelRunners(scenario.runners);outsText.textContent="Outs: "+scenario.outs;throwText.textContent="Selecciona el primer tiro";summaryText.textContent="";quizFeedback.innerHTML="Selecciona la base donde debe realizarse el primer tiro.";quizAnswers.innerHTML="";scenario.options.forEach(opt=>{const b=document.createElement("button");b.textContent=opt;b.onclick=()=>answer(opt,b);quizAnswers.appendChild(b)});resetField()}
+function answer(opt,button){attempts++;const good=opt===scenario.correct;if(good){correct++;button.classList.add("correct")}else{button.classList.add("wrong");[...quizAnswers.children].find(b=>b.textContent===scenario.correct)?.classList.add("correct")}updateScore();[...quizAnswers.children].forEach(b=>b.disabled=true);quizFeedback.innerHTML=`<strong>${good?"✅ Correcto":"❌ Revisa la jugada"}</strong><br>${scenario.explanation}<br><b>Resultado:</b> ${scenario.result}`;throwText.textContent=scenario.sequence.join(" → ");animateSequence()}
+function animateSequence(){resetField();const seq=scenario.sequence;let i=0;function step(){if(i>=seq.length)return;const key=seq[i];const point=TARGET[key]||HOME[key]||[50,90];move(ball,point);i++;setTimeout(step,650)}move(ball,HOME[scenario.fielder]||[50,65]);setTimeout(step,500)}
+function updateScore(){correctScore.textContent=correct;attemptScore.textContent=attempts;percentScore.textContent=attempts?Math.round(correct/attempts*100)+"%":"0%"}
+quizSelect.onchange=renderQuiz;
+
+function setMode(next){mode=next;const q=next==="quiz";playsMode.classList.toggle("hidden",q);quizMode.classList.toggle("hidden",!q);quizAnswers.classList.toggle("hidden",!q);quizFeedback.classList.toggle("hidden",!q);playControls.classList.toggle("hidden",q);positionArea.classList.toggle("hidden",q);tabPlays.classList.toggle("active",!q);tabQuiz.classList.toggle("active",q);cardLabel.textContent=q?"SECUENCIA CORRECTA":"TIRO PRINCIPAL";q?renderQuiz():renderPlay()}
+tabPlays.onclick=()=>setMode("plays");tabQuiz.onclick=()=>setMode("quiz");applyFilters();renderQuiz();setMode("plays");
+if("serviceWorker"in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js").catch(()=>{}));
 </script>
 </body></html>

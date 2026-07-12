@@ -1,24 +1,24 @@
-ACTUALIZACIÓN A 200 JUGADAS
+VERSIÓN ACADEMIA DEFENSIVA
 
-Este paquete reemplaza la versión anterior sin cambiar el enlace de GitHub Pages.
+Incluye:
+- 200 jugadas defensivas.
+- Modo interactivo “¿Dónde tiro?”.
+- Situaciones de fuerza y doble play.
+- Animación de la secuencia de tiros.
+- Puntuación de aciertos.
 
-ARCHIVOS QUE DEBES SUBIR O REEMPLAZAR:
-- index.html
-- plays.js
-- service-worker.js
-- manifest.webmanifest
-- icon-192.png
-- icon-512.png
-
-PASOS EN GITHUB:
-1. Entra al repositorio baseball-defense.
-2. Pulsa Add file → Upload files.
-3. Arrastra los seis archivos.
-4. GitHub indicará que varios archivos ya existen; se reemplazarán al confirmar.
-5. Pulsa Commit changes.
-6. Espera 1–3 minutos.
-7. Abre el mismo enlace de GitHub Pages.
-8. Si aún aparece la versión vieja, actualiza varias veces o borra la caché del navegador.
-
-La aplicación contiene exactamente 200 escenarios:
-25 tipos de jugadas × 8 situaciones de corredores.
+PARA ACTUALIZAR GITHUB:
+1. Extrae este ZIP.
+2. En tu repositorio baseball-defense abre Add file → Upload files.
+3. Sube y reemplaza todos estos archivos:
+   index.html
+   plays.js
+   situations.js
+   service-worker.js
+   manifest.webmanifest
+   icon-192.png
+   icon-512.png
+4. Pulsa Commit changes.
+5. Espera 1–3 minutos.
+6. Abre el mismo enlace de GitHub Pages.
+7. Si ves la versión anterior, actualiza la página o elimina el acceso anterior y vuelve a agregarlo.
