@@ -9,568 +9,97 @@
 <meta name="apple-mobile-web-app-title" content="Defensa Baseball">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>Defensa de Béisbol</title>
+<title>Defensa de Béisbol — 200 jugadas</title>
 <style>
-:root{
-  --bg:#082d22;--panel:#123f32;--gold:#f7c948;--red:#e74c3c;
-  --blue:#123a70;--runner:#f39c12;--white:#fff;--muted:#cfe6dd
-}
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:white;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);-webkit-tap-highlight-color:transparent;overscroll-behavior-y:none}
-.app{max-width:760px;margin:auto;padding:16px 12px 32px}
-h1{text-align:center;margin:4px 0 8px}
-.intro{text-align:center;color:var(--muted);margin-top:0;line-height:1.4}
-select,button{font:inherit}
-select{width:100%;padding:13px;border-radius:12px;background:#124a3a;color:#fff;border:1px solid #2a6f5b;margin-bottom:12px;font-weight:700}
-.field{position:relative;aspect-ratio:1;border:3px solid #e8c17a;border-radius:22px;overflow:hidden;background:#1d7048}
-.field svg{position:absolute;inset:0;width:100%;height:100%}
-.player,.runner{
-  position:absolute;display:flex;align-items:center;justify-content:center;
-  transform:translate(-50%,-50%);z-index:4;box-shadow:0 4px 10px rgba(0,0,0,.28)
-}
-.player{
-  width:34px;height:34px;border-radius:50%;background:var(--blue);
-  border:2px solid white;font-weight:900;font-size:12px;
-  transition:left 1.2s ease,top 1.2s ease
-}
-.runner{
-  width:30px;height:30px;border-radius:8px;background:var(--runner);
-  border:2px solid white;font-weight:900;font-size:11px
-}
-.ball{
-  position:absolute;width:12px;height:12px;border-radius:50%;background:white;
-  border:2px solid #d33;transform:translate(-50%,-50%);z-index:5;
-  transition:left 1.2s linear,top 1.2s linear
-}
-.controls{display:flex;gap:10px;margin-top:12px}
-.controls button{flex:1;padding:12px;border:0;border-radius:12px;color:white;font-weight:900;cursor:pointer}
-#playBtn{background:var(--red)}#resetBtn{background:#245b4a}
-.card{background:var(--panel);border-left:5px solid var(--gold);border-radius:14px;padding:14px;margin-top:14px}
-.card small{color:var(--gold);font-weight:900;letter-spacing:1px}
-.card strong{display:block;font-size:18px;margin-top:4px}
-.positions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.positions button{width:48px;height:44px;border-radius:12px;border:1px solid #2a6f5b;background:#124a3a;color:white;font-weight:900}
-.positions button.active{background:white;color:var(--blue)}
-.explanation{background:white;color:#263e36;border-radius:14px;padding:15px;margin-top:12px;line-height:1.45}
-.explanation h2{color:var(--blue);margin:0 0 6px}
-.legend{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0 0;font-size:12px;color:var(--muted);justify-content:center}
-.legend span{display:inline-flex;align-items:center;gap:6px}
-.dot,.square,.ballmini{display:inline-block}
-.dot{width:15px;height:15px;border-radius:50%;background:var(--blue);border:1px solid white}
-.square{width:15px;height:15px;border-radius:4px;background:var(--runner);border:1px solid white}
-.ballmini{width:12px;height:12px;border-radius:50%;background:white;border:2px solid #d33}
-.meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-.badge{background:#0f4b3a;border:1px solid #2a6f5b;padding:7px 10px;border-radius:999px;color:#dcefe7;font-size:12px}
-.note{font-size:12px;color:#a9c9bd;text-align:center;line-height:1.45;margin-top:16px}
-
-.install-box{display:none;background:#f7c948;color:#173228;padding:12px;border-radius:12px;margin-bottom:12px;align-items:center;gap:10px}
-.install-box button{margin-left:auto;border:0;background:#123a70;color:white;padding:9px 12px;border-radius:9px;font-weight:900}
-.mobile-help{background:#0f4b3a;border:1px solid #2a6f5b;padding:11px;border-radius:12px;color:#dcefe7;font-size:13px;line-height:1.4;margin-bottom:12px}
-@media(max-width:480px){
-  h1{font-size:25px}
-  .intro{font-size:14px}
-  select{font-size:14px;padding:12px 10px}
-  .player{width:31px;height:31px;font-size:11px}
-  .runner{width:27px;height:27px;font-size:10px}
-  .positions button{width:45px;height:42px}
-  .controls{position:sticky;bottom:8px;z-index:20;background:rgba(8,45,34,.94);padding:8px;border-radius:14px}
-  .field{border-radius:16px}
-}
-
+:root{--bg:#082d22;--panel:#123f32;--gold:#f7c948;--red:#e74c3c;--blue:#123a70;--runner:#f39c12;--white:#fff;--muted:#cfe6dd}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#fff;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);-webkit-tap-highlight-color:transparent}
+.app{max-width:780px;margin:auto;padding:15px 12px 35px}h1{text-align:center;margin:3px 0 5px}.intro{text-align:center;color:var(--muted);margin:0 0 13px}
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:9px}.filters input,.filters select,#playSelect{width:100%;padding:11px;border-radius:11px;background:#124a3a;color:#fff;border:1px solid #2a6f5b;font-weight:700}
+#playSelect{margin-bottom:10px}.count{font-size:12px;color:#d9eee6;text-align:right;margin:-3px 2px 8px}
+.field{position:relative;aspect-ratio:1;border:3px solid #e8c17a;border-radius:20px;overflow:hidden;background:#1d7048}.field svg{position:absolute;inset:0;width:100%;height:100%}
+.player,.runner{position:absolute;display:flex;align-items:center;justify-content:center;transform:translate(-50%,-50%);z-index:4;box-shadow:0 4px 10px rgba(0,0,0,.3)}
+.player{width:34px;height:34px;border-radius:50%;background:var(--blue);border:2px solid white;font-weight:900;font-size:12px;transition:left 1.15s ease,top 1.15s ease}
+.runner{width:29px;height:29px;border-radius:8px;background:var(--runner);border:2px solid white;font-weight:900;font-size:10px}
+.ball{position:absolute;width:12px;height:12px;border-radius:50%;background:white;border:2px solid #d33;transform:translate(-50%,-50%);z-index:5;transition:left 1.15s linear,top 1.15s linear}
+.controls{display:flex;gap:9px;margin-top:11px}.controls button{flex:1;padding:12px;border:0;border-radius:11px;color:white;font-weight:900}.play{background:var(--red)}.reset{background:#245b4a}
+.meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}.badge{background:#0f4b3a;border:1px solid #2a6f5b;padding:7px 10px;border-radius:999px;color:#dcefe7;font-size:12px}
+.card{background:var(--panel);border-left:5px solid var(--gold);border-radius:13px;padding:13px;margin-top:12px}.card small{color:var(--gold);font-weight:900}.card strong{display:block;margin-top:4px;font-size:17px}
+.summary{color:#d6e9e2;line-height:1.4;margin:9px 0 0;font-size:14px}.positions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.positions button{width:47px;height:42px;border-radius:11px;border:1px solid #2a6f5b;background:#124a3a;color:white;font-weight:900}.positions button.active{background:#fff;color:var(--blue)}
+.explanation{background:#fff;color:#263e36;border-radius:13px;padding:14px;margin-top:10px;line-height:1.45}.explanation h2{color:var(--blue);margin:0 0 5px}
+.legend{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:12px;margin-top:9px}.dot,.square,.ballmini{display:inline-block;vertical-align:middle;margin-right:4px}.dot{width:14px;height:14px;border-radius:50%;background:var(--blue);border:1px solid #fff}.square{width:14px;height:14px;border-radius:4px;background:var(--runner);border:1px solid #fff}.ballmini{width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid #d33}
+.note{font-size:11px;color:#a9c9bd;text-align:center;line-height:1.45;margin-top:15px}
+@media(max-width:500px){h1{font-size:24px}.filters{grid-template-columns:1fr}.player{width:30px;height:30px;font-size:10px}.runner{width:26px;height:26px}.controls{position:sticky;bottom:6px;z-index:20;background:rgba(8,45,34,.94);padding:7px;border-radius:13px}}
 </style>
 </head>
 <body>
-<div class="app">
-  <h1>Defensa de Béisbol</h1>
-  <p class="intro">Selecciona una jugada y observa el movimiento de los nueve defensores y la ubicación de los corredores.</p>
-  <div class="install-box" id="installBox">
-    <strong>Instalar en el teléfono</strong>
-    <button id="installBtn">Instalar</button>
-  </div>
-  <div class="mobile-help">
-    En Android abre esta página en Chrome y toca <b>Instalar</b>. En iPhone usa Safari:
-    <b>Compartir → Agregar a pantalla de inicio</b>.
-  </div>
+<main class="app">
+<h1>Defensa de Béisbol</h1>
+<p class="intro">200 escenarios defensivos con corredores, outs, cortes y respaldos.</p>
 
+<div class="filters">
+<input id="searchInput" placeholder="Buscar: shortstop, bunt, left field...">
+<select id="categoryFilter"><option value="">Todas las categorías</option></select>
+<select id="runnerFilter"><option value="">Todas las situaciones de corredores</option></select>
+<select id="outsFilter"><option value="">Todos los outs</option></select>
+</div>
+<select id="playSelect"></select>
+<div class="count" id="countText"></div>
 
-  <select id="playSelect"></select>
-
-  <div class="field" id="field">
-    <svg viewBox="0 0 100 100" aria-label="Campo de béisbol">
-      <rect width="100" height="100" fill="#1D7048"/>
-      <path d="M50 91 L7 36 Q50 -5 93 36 Z" fill="#2F8F5B"/>
-      <polygon points="50,90 25,65 50,40 75,65" fill="#C79A63"/>
-      <polygon points="50,88 28,66 50,44 72,66" fill="#3C955E"/>
-      <path d="M50 90 L8 37M50 90 L92 37" stroke="#fff" stroke-width=".8"/>
-      <circle cx="50" cy="66" r="3.2" fill="#C79A63"/>
-      <polygon points="50,88 48,90 50,92 52,90" fill="#fff"/>
-      <polygon points="73,64 75,66 73,68 71,66" fill="#fff"/>
-      <polygon points="50,42 52,44 50,46 48,44" fill="#fff"/>
-      <polygon points="27,64 29,66 27,68 25,66" fill="#fff"/>
-    </svg>
-  </div>
-
-  <div class="legend">
-    <span><i class="dot"></i>Defensor</span>
-    <span><i class="square"></i>Corredor</span>
-    <span><i class="ballmini"></i>Pelota</span>
-  </div>
-
-  <div class="controls">
-    <button id="playBtn">▶ Reproducir</button>
-    <button id="resetBtn">↺ Reiniciar</button>
-  </div>
-
-  <div class="meta">
-    <span class="badge" id="runnersText"></span>
-    <span class="badge" id="outsText"></span>
-  </div>
-
-  <div class="card">
-    <small>TIRO PRINCIPAL</small>
-    <strong id="throwText"></strong>
-  </div>
-
-  <div class="positions" id="positionButtons"></div>
-
-  <div class="explanation">
-    <h2 id="positionTitle">SS</h2>
-    <div id="positionDuty"></div>
-  </div>
-
-  <p class="note">Las rutas son guías educativas simplificadas. Pueden variar según la profundidad del batazo, la fuerza de los brazos y el sistema del entrenador.</p>
+<div class="field" id="field">
+<svg viewBox="0 0 100 100">
+<rect width="100" height="100" fill="#1D7048"/><path d="M50 91 L7 36 Q50 -5 93 36 Z" fill="#2F8F5B"/>
+<polygon points="50,90 25,65 50,40 75,65" fill="#C79A63"/><polygon points="50,88 28,66 50,44 72,66" fill="#3C955E"/>
+<path d="M50 90 L8 37M50 90 L92 37" stroke="#fff" stroke-width=".8"/><circle cx="50" cy="66" r="3.2" fill="#C79A63"/>
+<polygon points="50,88 48,90 50,92 52,90" fill="#fff"/><polygon points="73,64 75,66 73,68 71,66" fill="#fff"/>
+<polygon points="50,42 52,44 50,46 48,44" fill="#fff"/><polygon points="27,64 29,66 27,68 25,66" fill="#fff"/>
+</svg>
 </div>
 
+<div class="legend"><span><i class="dot"></i>Defensor</span><span><i class="square"></i>Corredor</span><span><i class="ballmini"></i>Pelota</span></div>
+<div class="controls"><button class="play" id="playBtn">▶ Reproducir</button><button class="reset" id="resetBtn">↺ Reiniciar</button></div>
+
+<div class="meta"><span class="badge" id="categoryText"></span><span class="badge" id="runnersText"></span><span class="badge" id="outsText"></span></div>
+<div class="card"><small>TIRO PRINCIPAL</small><strong id="throwText"></strong><p class="summary" id="summaryText"></p></div>
+<div class="positions" id="positionButtons"></div>
+<div class="explanation"><h2 id="positionTitle">SS</h2><div id="positionDuty"></div></div>
+<p class="note">Las rutas son guías educativas simplificadas para uso personal. Un entrenador puede usar variantes según edad, fuerza de brazo, profundidad y sistema defensivo.</p>
+</main>
+
+<script src="plays.js"></script>
 <script>
 const POS=["P","C","1B","2B","3B","SS","LF","CF","RF"];
 const HOME={P:[50,66],C:[50,91],"1B":[72,68],"2B":[61,52],"3B":[28,68],SS:[39,52],LF:[22,27],CF:[50,17],RF:[78,27]};
 const BASES={first:[73,66],second:[50,44],third:[27,66]};
-const stay=(p,d)=>({to:HOME[p],duty:d});
-const mv=(x,y,duty)=>({to:[x,y],duty});
+const field=document.getElementById("field"),playSelect=document.getElementById("playSelect");
+const playerNodes={},runnerNodes={};let ballNode,filtered=[...PLAYS],current=PLAYS[0],selected="SS";
 
-const PLAYS=[
-{
-name:"Hit al left field — bases limpias",runners:[],outs:"Cualquier cantidad",throw:"LF → SS → 2B",ball:[24,33],
-moves:{
-LF:mv(24,33,"Ataca la pelota y tira hacia segunda."),
-CF:mv(30,28,"Respalda al left fielder."),
-RF:mv(62,24,"Se mueve hacia el centro como respaldo."),
-SS:mv(38,45,"Se coloca como hombre de corte."),
-"2B":mv(50,47,"Cubre segunda base."),
-"3B":stay("3B","Protege tercera base."),
-"1B":mv(72,72,"Cubre primera para el bateador-corredor."),
-P:mv(38,72,"Se mueve como respaldo hacia tercera."),
-C:stay("C","Permanece en home y dirige la defensa.")
-}},
-{
-name:"Hit al left field — corredor en primera",runners:["first"],outs:"Cualquier cantidad",throw:"LF → SS → 3B",ball:[24,33],
-moves:{
-LF:mv(24,33,"Ataca la pelota y prepara el tiro a tercera."),
-CF:mv(29,28,"Respalda al left fielder."),
-RF:mv(61,24,"Se mueve hacia el centro."),
-SS:mv(34,49,"Se alinea como corte hacia tercera."),
-"3B":stay("3B","Cubre tercera base."),
-"2B":mv(50,47,"Cubre segunda base."),
-"1B":mv(72,72,"Cubre primera para el bateador-corredor."),
-P:mv(20,75,"Respalda el tiro a tercera."),
-C:stay("C","Dirige el corte y protege home.")
-}},
-{
-name:"Hit al left field — corredor en segunda",runners:["second"],outs:"Cualquier cantidad",throw:"LF → 3B → Home",ball:[24,33],
-moves:{
-LF:mv(24,33,"Ataca la pelota y prepara el tiro a home."),
-CF:mv(29,28,"Respalda al left fielder."),
-RF:mv(60,24,"Se mueve hacia el centro."),
-"3B":mv(34,58,"Actúa como hombre de corte hacia home."),
-SS:mv(30,64,"Cubre tercera base."),
-"2B":mv(50,47,"Cubre segunda base."),
-"1B":stay("1B","Mantiene cobertura de primera."),
-P:mv(40,88,"Respalda el tiro a home."),
-C:stay("C","Recibe el tiro en home.")
-}},
-{
-name:"Hit al center field — bases limpias",runners:[],outs:"Cualquier cantidad",throw:"CF → SS → 2B",ball:[50,30],
-moves:{
-CF:mv(50,30,"Ataca la pelota."),
-LF:mv(38,27,"Respalda por la izquierda."),
-RF:mv(62,27,"Respalda por la derecha."),
-SS:mv(45,45,"Se coloca como hombre de corte."),
-"2B":mv(50,47,"Cubre segunda base."),
-"3B":stay("3B","Protege tercera."),
-"1B":mv(72,72,"Cubre primera."),
-P:mv(50,74,"Se mueve hacia el centro del cuadro."),
-C:stay("C","Dirige la defensa.")
-}},
-{
-name:"Hit al center field — corredor en primera",runners:["first"],outs:"Cualquier cantidad",throw:"CF → SS → 3B",ball:[50,30],
-moves:{
-CF:mv(50,30,"Ataca la pelota y tira hacia tercera."),
-LF:mv(37,27,"Respalda por la izquierda."),
-RF:mv(63,27,"Respalda por la derecha."),
-SS:mv(39,45,"Se alinea como corte hacia tercera."),
-"3B":stay("3B","Cubre tercera base."),
-"2B":mv(50,47,"Cubre segunda."),
-"1B":mv(72,72,"Cubre primera."),
-P:mv(20,75,"Respalda tercera."),
-C:stay("C","Permanece en home y dirige.")
-}},
-{
-name:"Hit al right field — bases limpias",runners:[],outs:"Cualquier cantidad",throw:"RF → 2B → 2B",ball:[76,33],
-moves:{
-RF:mv(76,33,"Ataca la pelota y tira al cuadro."),
-CF:mv(70,28,"Respalda al right fielder."),
-LF:mv(39,24,"Se mueve hacia el centro."),
-"2B":mv(62,45,"Actúa como hombre de corte."),
-SS:mv(50,47,"Cubre segunda base."),
-"1B":mv(72,72,"Cubre primera."),
-"3B":stay("3B","Protege tercera."),
-P:mv(60,73,"Se mueve hacia el lado derecho."),
-C:stay("C","Dirige la jugada.")
-}},
-{
-name:"Hit al right field — corredor en segunda",runners:["second"],outs:"Cualquier cantidad",throw:"RF → 1B → Home",ball:[76,33],
-moves:{
-RF:mv(76,33,"Ataca la pelota y prepara el tiro a home."),
-CF:mv(70,28,"Respalda al right fielder."),
-LF:mv(39,24,"Se desplaza hacia el centro."),
-"1B":mv(65,57,"Se alinea como hombre de corte hacia home."),
-"2B":mv(50,47,"Cubre segunda base."),
-SS:mv(32,60,"Se desplaza hacia tercera."),
-"3B":stay("3B","Cubre tercera base."),
-P:mv(40,88,"Respalda el tiro a home."),
-C:stay("C","Recibe el tiro y comunica si cortar.")
-}},
-{
-name:"Rolling al shortstop — bases limpias",runners:[],outs:"Cualquier cantidad",throw:"SS → 1B",ball:[38,55],
-moves:{
-SS:mv(38,55,"Fildea y tira a primera."),
-"1B":stay("1B","Cubre primera y recibe el tiro."),
-"2B":mv(56,53,"Respalda el lado derecho del cuadro."),
-"3B":mv(31,63,"Se acerca por si la pelota desvía."),
-P:mv(58,74,"Respalda primera."),
-C:stay("C","Dirige la defensa."),
-LF:mv(30,38,"Respalda el lado izquierdo."),
-CF:mv(48,31,"Se adelanta como respaldo."),
-RF:mv(73,40,"Respalda primera desde el outfield.")
-}},
-{
-name:"Rolling al shortstop — corredor en primera",runners:["first"],outs:"0 o 1 out",throw:"SS → 2B → 1B",ball:[38,55],
-moves:{
-SS:mv(38,55,"Fildea y tira a segunda para iniciar el doble play."),
-"2B":mv(50,48,"Cubre segunda y pivota hacia primera."),
-"1B":stay("1B","Cubre primera y recibe el segundo tiro."),
-"3B":mv(31,63,"Respalda al shortstop."),
-P:mv(57,72,"Respalda primera."),
-C:stay("C","Dirige la defensa."),
-LF:mv(30,38,"Respalda el lado izquierdo."),
-CF:mv(48,31,"Respalda segunda."),
-RF:mv(73,40,"Respalda primera.")
-}},
-{
-name:"Rolling a segunda base — corredor en primera",runners:["first"],outs:"0 o 1 out",throw:"2B → SS → 1B",ball:[60,55],
-moves:{
-"2B":mv(60,55,"Fildea y tira al shortstop en segunda."),
-SS:mv(50,48,"Cubre segunda y pivota hacia primera."),
-"1B":stay("1B","Cubre primera."),
-P:mv(57,72,"Respalda primera."),
-"3B":stay("3B","Protege tercera."),
-C:stay("C","Dirige la defensa."),
-RF:mv(73,40,"Respalda primera."),
-CF:mv(52,31,"Respalda segunda."),
-LF:mv(34,38,"Se adelanta hacia el cuadro.")
-}},
-{
-name:"Rolling a tercera base — bases limpias",runners:[],outs:"Cualquier cantidad",throw:"3B → 1B",ball:[30,62],
-moves:{
-"3B":mv(30,62,"Fildea y tira a primera."),
-SS:mv(36,58,"Respalda al tercera base."),
-"1B":stay("1B","Cubre primera."),
-"2B":mv(58,54,"Se mueve hacia el lado derecho."),
-P:mv(58,74,"Respalda primera."),
-C:stay("C","Dirige la defensa."),
-LF:mv(25,40,"Respalda tercera."),
-CF:mv(46,31,"Se adelanta."),
-RF:mv(73,40,"Respalda primera.")
-}},
-{
-name:"Rolling a tercera base — corredor en primera",runners:["first"],outs:"0 o 1 out",throw:"3B → 2B → 1B",ball:[30,62],
-moves:{
-"3B":mv(30,62,"Fildea y tira a segunda."),
-"2B":mv(50,48,"Cubre segunda y pivota."),
-SS:mv(43,50,"Respalda la segunda base."),
-"1B":stay("1B","Cubre primera."),
-P:mv(57,72,"Respalda primera."),
-C:stay("C","Dirige la defensa."),
-LF:mv(25,40,"Respalda tercera."),
-CF:mv(48,31,"Respalda segunda."),
-RF:mv(73,40,"Respalda primera.")
-}},
-{
-name:"Rolling a primera base — bases limpias",runners:[],outs:"Cualquier cantidad",throw:"1B → P",ball:[70,62],
-moves:{
-"1B":mv(70,62,"Fildea la pelota."),
-P:mv(69,68,"Corre a cubrir primera."),
-"2B":mv(64,58,"Respalda la jugada."),
-SS:mv(50,48,"Cubre segunda."),
-"3B":stay("3B","Protege tercera."),
-C:stay("C","Dirige la defensa."),
-RF:mv(78,40,"Respalda primera."),
-CF:mv(56,31,"Se adelanta."),
-LF:mv(35,38,"Se adelanta.")
-}},
-{
-name:"Doble al left-center — corredor en primera",runners:["first"],outs:"Cualquier cantidad",throw:"CF/LF → SS → Home",ball:[38,20],
-moves:{
-CF:mv(39,21,"Ataca la pelota en el gap."),
-LF:mv(34,24,"Ayuda y respalda al center fielder."),
-RF:mv(54,20,"Se desplaza detrás de la jugada."),
-SS:mv(40,39,"Primer hombre de relevo."),
-"3B":mv(37,57,"Segundo relevo hacia home."),
-"2B":mv(50,47,"Cubre segunda."),
-"1B":mv(66,61,"Observa al bateador-corredor."),
-P:mv(40,88,"Respalda home."),
-C:stay("C","Recibe el tiro y dirige relevos.")
-}},
-{
-name:"Doble al right-center — corredor en primera",runners:["first"],outs:"Cualquier cantidad",throw:"CF/RF → 2B → Home",ball:[62,20],
-moves:{
-CF:mv(61,21,"Ataca la pelota en el gap."),
-RF:mv(66,24,"Ayuda y respalda."),
-LF:mv(46,20,"Se desplaza hacia el centro."),
-"2B":mv(60,39,"Primer relevo."),
-"1B":mv(63,57,"Segundo relevo hacia home."),
-SS:mv(50,47,"Cubre segunda."),
-"3B":stay("3B","Cubre tercera."),
-P:mv(40,88,"Respalda home."),
-C:stay("C","Recibe el tiro.")
-}},
-{
-name:"Triple por la raya de left field — bases limpias",runners:[],outs:"Cualquier cantidad",throw:"LF → SS → 3B",ball:[12,18],
-moves:{
-LF:mv(14,20,"Corre hacia la raya y fildea."),
-CF:mv(24,23,"Respalda al left fielder."),
-RF:mv(55,20,"Se mueve hacia el centro."),
-SS:mv(30,40,"Primer relevo."),
-"3B":stay("3B","Cubre tercera."),
-"2B":mv(50,47,"Cubre segunda."),
-"1B":mv(66,61,"Sigue al bateador-corredor."),
-P:mv(20,75,"Respalda tercera."),
-C:stay("C","Dirige la jugada.")
-}},
-{
-name:"Fly corto al left field — corredor en segunda",runners:["second"],outs:"Menos de 2 outs",throw:"LF → 3B",ball:[28,38],
-moves:{
-LF:mv(28,38,"Ataca el fly corto."),
-SS:mv(33,45,"Sale hacia el outfield como respaldo."),
-CF:mv(36,30,"Respalda al left fielder."),
-"3B":stay("3B","Cubre tercera."),
-"2B":mv(50,47,"Cubre segunda."),
-"1B":stay("1B","Cubre primera."),
-P:mv(40,73,"Se mueve hacia el lado izquierdo."),
-C:stay("C","Dirige la defensa."),
-RF:mv(62,24,"Se mueve hacia el centro.")
-}},
-{
-name:"Fly profundo al left field — corredor en tercera",runners:["third"],outs:"0 o 1 out",throw:"LF → 3B → Home",ball:[20,22],
-moves:{
-LF:mv(20,22,"Se coloca debajo del fly y prepara el tiro a home."),
-CF:mv(27,22,"Respalda la captura."),
-RF:mv(60,22,"Se desplaza hacia el centro."),
-"3B":mv(33,58,"Se alinea como hombre de corte."),
-SS:mv(38,48,"Cubre tercera después del pisa y corre."),
-"2B":stay("2B","Cubre segunda."),
-"1B":stay("1B","Mantiene primera."),
-P:mv(40,88,"Respalda home."),
-C:stay("C","Recibe el tiro.")
-}},
-{
-name:"Fly profundo al center field — corredor en tercera",runners:["third"],outs:"0 o 1 out",throw:"CF → SS → Home",ball:[50,18],
-moves:{
-CF:mv(50,18,"Atrapa el fly profundo y prepara el tiro."),
-LF:mv(39,22,"Respalda por la izquierda."),
-RF:mv(61,22,"Respalda por la derecha."),
-SS:mv(43,52,"Se alinea como corte hacia home."),
-"2B":mv(50,47,"Cubre segunda."),
-"3B":stay("3B","Cubre tercera."),
-"1B":stay("1B","Cubre primera."),
-P:mv(40,88,"Respalda home."),
-C:stay("C","Recibe el tiro.")
-}},
-{
-name:"Fly profundo al right field — corredor en tercera",runners:["third"],outs:"0 o 1 out",throw:"RF → 1B → Home",ball:[80,22],
-moves:{
-RF:mv(80,22,"Atrapa el fly y prepara el tiro a home."),
-CF:mv(73,22,"Respalda la captura."),
-LF:mv(40,22,"Se desplaza al centro."),
-"1B":mv(67,57,"Se alinea como corte."),
-"2B":mv(50,47,"Cubre segunda."),
-SS:mv(33,58,"Se mueve hacia tercera."),
-"3B":stay("3B","Cubre tercera."),
-P:mv(40,88,"Respalda home."),
-C:stay("C","Recibe el tiro.")
-}},
-{
-name:"Bunt por tercera — corredor en primera",runners:["first"],outs:"0 outs",throw:"3B → 1B",ball:[38,75],
-moves:{
-"3B":mv(38,75,"Carga el bunt y fildea."),
-P:mv(47,72,"Se mueve a respaldar la jugada."),
-"1B":stay("1B","Cubre primera."),
-SS:mv(28,66,"Cubre tercera."),
-"2B":mv(50,47,"Cubre segunda."),
-C:mv(47,83,"Sale de home para ayudar."),
-LF:mv(27,40,"Respalda tercera."),
-CF:mv(48,31,"Se adelanta."),
-RF:mv(73,40,"Respalda primera.")
-}},
-{
-name:"Bunt por primera — corredor en primera",runners:["first"],outs:"0 outs",throw:"P/1B → 2B o 1B",ball:[62,75],
-moves:{
-"1B":mv(62,75,"Carga el bunt."),
-P:mv(56,72,"Ayuda a fildear."),
-"2B":mv(72,68,"Cubre primera."),
-SS:mv(50,47,"Cubre segunda."),
-"3B":stay("3B","Cubre tercera."),
-C:mv(53,83,"Sale de home para ayudar."),
-RF:mv(75,40,"Respalda primera."),
-CF:mv(52,31,"Se adelanta."),
-LF:mv(34,38,"Se adelanta.")
-}},
-{
-name:"Bases llenas — rolling al shortstop",runners:["first","second","third"],outs:"Menos de 2 outs",throw:"SS → C → 1B",ball:[38,55],
-moves:{
-SS:mv(38,55,"Fildea y tira a home para el out forzado."),
-C:stay("C","Cubre home y luego puede tirar a primera."),
-"1B":stay("1B","Cubre primera."),
-"2B":mv(50,47,"Cubre segunda."),
-"3B":stay("3B","Cubre tercera."),
-P:mv(42,82,"Respalda home."),
-LF:mv(30,38,"Respalda el lado izquierdo."),
-CF:mv(48,31,"Se adelanta."),
-RF:mv(73,40,"Respalda primera.")
-}},
-{
-name:"Corredores en primera y tercera — hit al right field",runners:["first","third"],outs:"Cualquier cantidad",throw:"RF → 1B → Home",ball:[76,33],
-moves:{
-RF:mv(76,33,"Ataca la pelota y tira a home."),
-CF:mv(70,28,"Respalda al right fielder."),
-LF:mv(39,24,"Se mueve hacia el centro."),
-"1B":mv(65,57,"Actúa como corte hacia home."),
-"2B":mv(50,47,"Cubre segunda."),
-SS:mv(32,60,"Cubre tercera."),
-"3B":stay("3B","Permanece en tercera."),
-P:mv(40,88,"Respalda home."),
-C:stay("C","Recibe el tiro y dirige.")
-}}
-];
+POS.forEach(p=>{const e=document.createElement("div");e.className="player";e.textContent=p;field.appendChild(e);playerNodes[p]=e;
+ const b=document.createElement("button");b.textContent=p;b.onclick=()=>{selected=p;renderDuty();renderPositionButtons()};document.getElementById("positionButtons").appendChild(b)});
+["first","second","third"].forEach(base=>{const e=document.createElement("div");e.className="runner";e.textContent="R";e.style.display="none";field.appendChild(e);runnerNodes[base]=e});
+ballNode=document.createElement("div");ballNode.className="ball";field.appendChild(ballNode);
 
-const field=document.getElementById("field");
-const select=document.getElementById("playSelect");
-const throwText=document.getElementById("throwText");
-const runnersText=document.getElementById("runnersText");
-const outsText=document.getElementById("outsText");
-const positionButtons=document.getElementById("positionButtons");
-const positionTitle=document.getElementById("positionTitle");
-const positionDuty=document.getElementById("positionDuty");
-
-const playerNodes={}, runnerNodes={};
-let ballNode,current=PLAYS[0],selected="SS";
-
-POS.forEach(p=>{
-  const el=document.createElement("div");
-  el.className="player";el.textContent=p;field.appendChild(el);playerNodes[p]=el;
-  const b=document.createElement("button");
-  b.textContent=p;
-  b.onclick=()=>{selected=p;renderExplanation();renderButtons()};
-  positionButtons.appendChild(b);
-});
-
-["first","second","third"].forEach(base=>{
-  const el=document.createElement("div");
-  el.className="runner";el.textContent="R";
-  el.style.display="none";
-  field.appendChild(el);
-  runnerNodes[base]=el;
-});
-
-ballNode=document.createElement("div");
-ballNode.className="ball";
-field.appendChild(ballNode);
-
-PLAYS.forEach((p,i)=>{
-  const o=document.createElement("option");
-  o.value=i;o.textContent=`${i+1}. ${p.name}`;
-  select.appendChild(o);
-});
+function unique(key){return [...new Set(PLAYS.map(p=>p[key]))].sort()}
+unique("category").forEach(v=>categoryFilter.add(new Option(v,v)));
+unique("runnersLabel").forEach(v=>runnerFilter.add(new Option(v,v)));
+unique("outs").forEach(v=>outsFilter.add(new Option(v,v)));
 
 function move(el,pt){el.style.left=pt[0]+"%";el.style.top=pt[1]+"%"}
-function resetPlayers(){POS.forEach(p=>move(playerNodes[p],HOME[p]))}
-function renderRunners(){
-  ["first","second","third"].forEach(base=>{
-    const active=current.runners.includes(base);
-    runnerNodes[base].style.display=active?"flex":"none";
-    if(active) move(runnerNodes[base],BASES[base]);
-  });
+function reset(){POS.forEach(p=>move(playerNodes[p],HOME[p]));move(ballNode,[50,86]);renderRunners()}
+function play(){POS.forEach(p=>move(playerNodes[p],current.moves[p].to));move(ballNode,current.ball)}
+function renderRunners(){["first","second","third"].forEach(base=>{const on=current.runners.includes(base);runnerNodes[base].style.display=on?"flex":"none";if(on)move(runnerNodes[base],BASES[base])})}
+function renderPositionButtons(){[...positionButtons.children].forEach(b=>b.classList.toggle("active",b.textContent===selected))}
+function renderDuty(){positionTitle.textContent=selected;positionDuty.textContent=current.moves[selected].duty}
+function renderCurrent(){current=filtered[+playSelect.value]||filtered[0]||PLAYS[0];categoryText.textContent=current.category;runnersText.textContent=current.runnersLabel;outsText.textContent="Outs: "+current.outs;throwText.textContent=current.throw;summaryText.textContent=current.summary;reset();renderDuty();renderPositionButtons()}
+function applyFilters(){
+ const q=searchInput.value.trim().toLowerCase(),cat=categoryFilter.value,run=runnerFilter.value,out=outsFilter.value;
+ filtered=PLAYS.filter(p=>(!q||(p.name+" "+p.category+" "+p.throw).toLowerCase().includes(q))&&(!cat||p.category===cat)&&(!run||p.runnersLabel===run)&&(!out||p.outs===out));
+ playSelect.innerHTML="";filtered.forEach((p,i)=>playSelect.add(new Option(`${p.number}. ${p.name}`,i)));
+ countText.textContent=`${filtered.length} de ${PLAYS.length} jugadas`;
+ renderCurrent();
 }
-function resetBall(){move(ballNode,[50,86])}
-function play(){
-  POS.forEach(p=>move(playerNodes[p],current.moves[p].to));
-  move(ballNode,current.ball);
-}
-function reset(){resetPlayers();resetBall();renderRunners()}
-function renderButtons(){
-  [...positionButtons.children].forEach(b=>b.classList.toggle("active",b.textContent===selected));
-}
-function renderExplanation(){
-  positionTitle.textContent=selected;
-  positionDuty.textContent=current.moves[selected].duty;
-}
-function runnerLabel(r){
-  if(r.length===0)return "Bases limpias";
-  const map={first:"1ª",second:"2ª",third:"3ª"};
-  return "Corredores: "+r.map(x=>map[x]).join(" y ");
-}
-function render(){
-  current=PLAYS[+select.value];
-  throwText.textContent=current.throw;
-  runnersText.textContent=runnerLabel(current.runners);
-  outsText.textContent="Outs: "+current.outs;
-  reset();
-  renderExplanation();
-  renderButtons();
-}
-select.onchange=render;
-document.getElementById("playBtn").onclick=play;
-document.getElementById("resetBtn").onclick=reset;
-render();
+[searchInput,categoryFilter,runnerFilter,outsFilter].forEach(e=>e.addEventListener(e.tagName==="INPUT"?"input":"change",applyFilters));
+playSelect.onchange=renderCurrent;playBtn.onclick=play;resetBtn.onclick=reset;applyFilters();
 
-let deferredPrompt;
-const installBox=document.getElementById("installBox");
-const installBtn=document.getElementById("installBtn");
-
-window.addEventListener("beforeinstallprompt",(event)=>{
-  event.preventDefault();
-  deferredPrompt=event;
-  installBox.style.display="flex";
-});
-
-installBtn.addEventListener("click",async()=>{
-  if(!deferredPrompt)return;
-  deferredPrompt.prompt();
-  await deferredPrompt.userChoice;
-  deferredPrompt=null;
-  installBox.style.display="none";
-});
-
-window.addEventListener("appinstalled",()=>{
-  installBox.style.display="none";
-});
-
-if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>{
-    navigator.serviceWorker.register("./service-worker.js").catch(()=>{});
-  });
-}
-
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js").catch(()=>{}))}
 </script>
-</body>
-</html>
+</body></html>
