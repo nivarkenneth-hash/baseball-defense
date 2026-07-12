@@ -1,0 +1,20 @@
+VERSIÓN MÓVIL INSTALABLE
+
+IMPORTANTE:
+Para que aparezca el botón Instalar y funcione sin internet, la carpeta debe publicarse en una página web segura (HTTPS).
+No necesita Expo ni Node.js para usarla.
+
+FORMA MÁS FÁCIL:
+1. Sube todos los archivos de esta carpeta a Netlify Drop, GitHub Pages o cualquier hosting estático.
+2. Abre el enlace resultante en el teléfono.
+
+ANDROID:
+- Abre el enlace en Google Chrome.
+- Pulsa el botón Instalar o el menú ⋮ → Instalar aplicación / Agregar a pantalla principal.
+
+IPHONE:
+- Abre el enlace en Safari.
+- Pulsa Compartir.
+- Selecciona Agregar a pantalla de inicio.
+
+También puedes abrir index.html directamente en la computadora, pero la instalación móvil completa requiere que esté publicada mediante HTTPS.
